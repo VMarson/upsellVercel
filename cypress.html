@@ -83,7 +83,14 @@ id="offerInput"
 placeholder="Digite o código da oferta upsell"
 />
 
-<button type="button"  class="ticto-upsell-button" data-offer-code="OB67425DD">COMPRAR AGORA</button>
+<button
+type="button"
+id="upsellButton"
+class="ticto-upsell-button buy"
+data-offer-code=""
+>
+COMPRAR AGORA
+</button>
 
 <button
 type="button"
@@ -102,6 +109,13 @@ NÃO QUERO, OBRIGADO
 document.getElementById("upsellButton").addEventListener("click", function(){
 
 const offer = document.getElementById("offerInput").value
+
+if(!offer){
+alert("Digite o código da oferta")
+return
+}
+
+this.setAttribute("data-offer-code", offer)
 
 })
 
