@@ -105,7 +105,16 @@ NÃO QUERO, OBRIGADO
 
 <script>
 
-// quando clicar no botão, inserir o código da oferta
+// pegar env da URL
+const params = new URLSearchParams(window.location.search)
+const env = params.get("env") || "qa8"
+
+// carregar script da Ticto conforme env
+const script = document.createElement("script")
+script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
+document.head.appendChild(script)
+
+// inserir offer code antes do clique
 document.getElementById("upsellButton").addEventListener("click", function(){
 
 const offer = document.getElementById("offerInput").value
@@ -120,8 +129,6 @@ this.setAttribute("data-offer-code", offer)
 })
 
 </script>
-
-<script src="https://midas.qa8.ticto.dev/oneclickbuy.js"></script>
 
 </body>
 </html>
