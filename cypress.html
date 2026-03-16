@@ -8,71 +8,60 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
+
 body{
-  background:#e4ecf1;
-  font-family:"Roboto",Arial,Helvetica,sans-serif;
+background:#e4ecf1;
+font-family:"Roboto",Arial,Helvetica,sans-serif;
 }
 
 .container{
-  width:100vw;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+width:100vw;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .box{
-  background:white;
-  border-radius:8px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:12px;
-  max-width:400px;
-  padding:40px 30px;
-  text-align:center;
+background:white;
+border-radius:8px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:12px;
+max-width:400px;
+padding:40px 30px;
+text-align:center;
 }
 
 .logo img{
-  width:120px;
+width:120px;
 }
 
 input{
-  width:100%;
-  padding:10px;
-  border-radius:6px;
-  border:1px solid #ccc;
+width:100%;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
 }
 
 button{
-  padding:10px 16px;
-  border-radius:6px;
-  border:none;
-  cursor:pointer;
+padding:10px 16px;
+border-radius:6px;
+border:none;
+cursor:pointer;
 }
 
 .buy{
-  background:#28a745;
-  color:white;
+background:#28a745;
+color:white;
 }
 
 </style>
-
-<script>
-
-/* pegar env da URL */
-const params = new URLSearchParams(window.location.search)
-const env = params.get("env") || "qa8"
-
-/* carregar script da Ticto */
-var s = document.createElement("script")
-s.src = "https://midas." + env + ".ticto.dev/oneclickbuy.js"
-document.head.appendChild(s)
-
-</script>
 
 </head>
 
@@ -87,26 +76,22 @@ document.head.appendChild(s)
 
 <h2 id="title">Teste de Flow</h2>
 
-<input id="offerInput" placeholder="Digite o código da oferta upsell">
+<input
+id="offerInput"
+placeholder="Digite o código da oferta upsell"
+/>
 
-<!-- botão para configurar o código -->
-<button id="setOffer" class="buy">
-CONFIGURAR OFERTA
-</button>
-
-<!-- botão real da Ticto -->
 <button
-  type="button"
-  id="upsellButton"
-  class="ticto-upsell-button buy"
-  data-offer-code=""
+type="button"
+id="loadUpsell"
+class="buy"
 >
-COMPRAR UPSELL
+ATIVAR UPSELL
 </button>
 
 <button
-  type="button"
-  class="ticto-refuse-button"
+type="button"
+class="ticto-refuse-button"
 >
 NÃO QUERO, OBRIGADO
 </button>
@@ -116,23 +101,36 @@ NÃO QUERO, OBRIGADO
 
 <script>
 
+const params = new URLSearchParams(window.location.search)
+const env = params.get("env") || "qa8"
+
 document.getElementById("title").innerText = "Teste de Flow - " + env
 
-/* configurar offer_code antes da compra */
-document.getElementById("setOffer").addEventListener("click", function(){
+document.getElementById("loadUpsell").addEventListener("click", function(){
 
-  const offer = document.getElementById("offerInput").value
+const offer = document.getElementById("offerInput").value
 
-  if(!offer){
-    alert("Digite o código da oferta")
-    return
-  }
+if(!offer){
+alert("Digite o código da oferta")
+return
+}
 
-  document
-    .getElementById("upsellButton")
-    .setAttribute("data-offer-code", offer)
+/* cria botão real do upsell */
+const btn = document.createElement("button")
 
-  alert("Oferta configurada: " + offer)
+btn.type = "button"
+btn.className = "ticto-upsell-button"
+btn.setAttribute("data-offer-code", offer)
+
+btn.innerText = "COMPRAR UPSELL"
+
+document.querySelector(".box").appendChild(btn)
+
+/* carregar script da Ticto depois */
+const script = document.createElement("script")
+script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
+
+document.body.appendChild(script)
 
 })
 
