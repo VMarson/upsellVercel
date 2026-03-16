@@ -15,6 +15,7 @@ body{
   background:#e4ecf1;
   font-family:"Roboto",Arial,Helvetica,sans-serif;
 }
+
 .container{
   width:100vw;
   height:100vh;
@@ -22,6 +23,7 @@ body{
   align-items:center;
   justify-content:center;
 }
+
 .box{
   background:white;
   border-radius:8px;
@@ -33,34 +35,43 @@ body{
   padding:40px 30px;
   text-align:center;
 }
-.logo img{ width:120px; }
+
+.logo img{
+  width:120px;
+}
+
 input{
   width:100%;
   padding:10px;
   border-radius:6px;
   border:1px solid #ccc;
 }
+
 button{
   padding:10px 16px;
   border-radius:6px;
   border:none;
   cursor:pointer;
 }
+
 .buy{
   background:#28a745;
   color:white;
 }
+
 </style>
 
 <script>
-/* pega env da URL */
+
+/* pegar env da URL */
 const params = new URLSearchParams(window.location.search)
 const env = params.get("env") || "qa8"
 
-/* cria script da Ticto antes da página carregar */
+/* carregar script da Ticto */
 var s = document.createElement("script")
 s.src = "https://midas." + env + ".ticto.dev/oneclickbuy.js"
 document.head.appendChild(s)
+
 </script>
 
 </head>
@@ -78,16 +89,25 @@ document.head.appendChild(s)
 
 <input id="offerInput" placeholder="Digite o código da oferta upsell">
 
+<!-- botão para configurar o código -->
+<button id="setOffer" class="buy">
+CONFIGURAR OFERTA
+</button>
+
+<!-- botão real da Ticto -->
 <button
   type="button"
   id="upsellButton"
   class="ticto-upsell-button buy"
   data-offer-code=""
 >
-COMPRAR AGORA
+COMPRAR UPSELL
 </button>
 
-<button type="button" class="ticto-refuse-button">
+<button
+  type="button"
+  class="ticto-refuse-button"
+>
 NÃO QUERO, OBRIGADO
 </button>
 
@@ -96,11 +116,10 @@ NÃO QUERO, OBRIGADO
 
 <script>
 
-/* mostrar env na tela */
 document.getElementById("title").innerText = "Teste de Flow - " + env
 
-/* colocar offer code antes do clique */
-document.getElementById("upsellButton").addEventListener("click", function(){
+/* configurar offer_code antes da compra */
+document.getElementById("setOffer").addEventListener("click", function(){
 
   const offer = document.getElementById("offerInput").value
 
@@ -109,7 +128,11 @@ document.getElementById("upsellButton").addEventListener("click", function(){
     return
   }
 
-  this.setAttribute("data-offer-code", offer)
+  document
+    .getElementById("upsellButton")
+    .setAttribute("data-offer-code", offer)
+
+  alert("Oferta configurada: " + offer)
 
 })
 
