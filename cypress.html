@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acesso Expirado</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+
+  <style>
+    body {
+      background: #e4ecf1;
+      font-family: "Roboto", Arial, Helvetica, sans-serif;
+      color: #333;
+    }
+
+    .container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .box {
+      background: white;
+      border-radius: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .box p {
+      line-height: 1.5rem;
+    }
+
+    .box * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box .logo {
+      width: 80%;
+      max-width: 150px;
+    }
+
+    .box .logo img {
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 15px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .buy {
+      background: #28a745;
+      color: white;
+    }
+
+  </style>
+
+  <body>
+
+    <div class="container">
+      <div class="box">
+
+        <div class="logo">
+          <img
+            src="https://d2ucq9llvgnbyn.cloudfront.net/Ticto+Logo.svg"
+            alt="Mozart"
+          />
+        </div>
+
+        <h2>Teste de Flow</h2>
+
+        <input
+          id="offerInput"
+          placeholder="Digite o código da oferta upsell"
+        />
+
+        <button
+          id="buyButton"
+          class="buy"
+        >
+          COMPRAR AGORA
+        </button>
+
+        <button
+          type="button"
+          class="ticto-refuse-button"
+        >
+          NÃO QUERO, OBRIGADO.
+        </button>
+
+      </div>
+    </div>
+
+<script>
+
+function getEnv() {
+
+  const params = new URLSearchParams(window.location.search)
+
+  const env = params.get("env") || "qa8"
+
+  return env
+
+}
+
+function loadScript() {
+
+  const env = getEnv()
+
+  const script = document.createElement("script")
+
+  script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
+
+  script.async = true
+
+  document.head.appendChild(script)
+
+}
+
+loadScript()
+
+document.getElementById("buyButton").addEventListener("click", () => {
+
+  const offer = document.getElementById("offerInput").value
+
+  if (!offer) {
+    alert("Digite o código da oferta")
+    return
+  }
+
+  const btn = document.createElement("button")
+
+  btn.className = "ticto-upsell-button"
+
+  btn.setAttribute("data-offer-code", offer)
+
+  btn.style.display = "none"
+
+  document.body.appendChild(btn)
+
+  btn.click()
+
+})
+
+</script>
+
+  </body>
+</html>
