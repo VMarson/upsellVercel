@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -77,20 +78,25 @@ color:white;
 
 <h2>Teste de Flow</h2>
 
-<input id="offerInput" placeholder="Digite o código da oferta upsell">
+<input
+id="offerInput"
+placeholder="Digite o código da oferta upsell"
+/>
 
-<button id="prepareBuy" class="buy">
+<button
+type="button"
+id="upsellButton"
+class="ticto-upsell-button buy"
+data-offer-code=""
+onclick="setOfferCode()"
+>
 COMPRAR AGORA
 </button>
 
-<!-- botão real da ticto -->
-<button id="realBuy"
-class="ticto-upsell-button"
-style="display:none">
-REAL BUY
-</button>
-
-<button class="ticto-refuse-button">
+<button
+type="button"
+class="ticto-refuse-button"
+>
 NÃO QUERO, OBRIGADO
 </button>
 
@@ -110,23 +116,21 @@ script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
 script.async = true
 document.head.appendChild(script)
 
-// botão intermediário
-document.getElementById("prepareBuy").addEventListener("click", () => {
+// função que define o offer antes do clique
+function setOfferCode(){
 
 const offer = document.getElementById("offerInput").value
 
 if(!offer){
 alert("Digite o código da oferta")
-return
+return false
 }
 
-const realBtn = document.getElementById("realBuy")
+document
+.getElementById("upsellButton")
+.setAttribute("data-offer-code",offer)
 
-realBtn.setAttribute("data-offer-code",offer)
-
-realBtn.click()
-
-})
+}
 
 </script>
 
