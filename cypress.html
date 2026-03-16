@@ -17,7 +17,6 @@
 body{
 background:#e4ecf1;
 font-family:"Roboto",Arial,Helvetica,sans-serif;
-color:#333;
 }
 
 .container{
@@ -65,19 +64,6 @@ color:white;
 
 </style>
 
-<script>
-
-// pega env da URL
-const params = new URLSearchParams(window.location.search)
-const env = params.get("env") || "qa8"
-
-// carrega script da Ticto igual ao modo fixo
-document.write(
-`<script src="https://midas.${env}.ticto.dev/oneclickbuy.js"><\/script>`
-)
-
-</script>
-
 </head>
 
 <body>
@@ -97,7 +83,14 @@ id="offerInput"
 placeholder="Digite o código da oferta upsell"
 />
 
-<button type="button"  class="ticto-upsell-button" data-offer-code="OB67425DD">COMPRAR AGORA</button>
+<button
+type="button"
+id="upsellButton"
+class="ticto-upsell-button buy"
+data-offer-code=""
+>
+COMPRAR AGORA
+</button>
 
 <button
 type="button"
@@ -112,10 +105,11 @@ NÃO QUERO, OBRIGADO
 
 <script>
 
-// mostrar env na tela (debug)
+const params = new URLSearchParams(window.location.search)
+const env = params.get("env") || "qa8"
+
 document.getElementById("title").innerText = "Teste de Flow - " + env
 
-// inserir offer code antes do clique
 document.getElementById("upsellButton").addEventListener("click", function(){
 
 const offer = document.getElementById("offerInput").value
@@ -128,6 +122,11 @@ return
 this.setAttribute("data-offer-code", offer)
 
 })
+
+// carregar script da ticto depois do DOM
+const script = document.createElement("script")
+script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
+document.body.appendChild(script)
 
 </script>
 
