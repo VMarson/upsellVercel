@@ -17,6 +17,7 @@
 body{
 background:#e4ecf1;
 font-family:"Roboto",Arial,Helvetica,sans-serif;
+color:#333;
 }
 
 .container{
@@ -70,9 +71,9 @@ color:white;
 const params = new URLSearchParams(window.location.search)
 const env = params.get("env") || "qa8"
 
-// cria script da Ticto antes da página carregar
+// carrega script da Ticto igual ao modo fixo
 document.write(
-  `<script src="https://midas.${env}.ticto.dev/oneclickbuy.js"><\/script>`
+`<script src="https://midas.${env}.ticto.dev/oneclickbuy.js"><\/script>`
 )
 
 </script>
