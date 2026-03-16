@@ -1,179 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Acesso Expirado</title>
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<title>Teste Upsell</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100&display=swap"
-      rel="stylesheet"
-    />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  </head>
+<link
+href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100&display=swap"
+rel="stylesheet"
+/>
 
-  <style>
-    body {
-      background: #e4ecf1;
-      font-family: "Roboto", Arial, Helvetica, sans-serif;
-      color: #333;
-    }
+<style>
 
-    .container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+body {
+background: #e4ecf1;
+font-family: "Roboto", Arial, Helvetica, sans-serif;
+color: #333;
+}
 
-    .box {
-      background: white;
-      border-radius: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
+.container {
+width: 100vw;
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+}
 
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-      text-align: center;
-    }
+.box {
+background: white;
+border-radius: 0.5rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 1rem;
 
-    .box p {
-      line-height: 1.5rem;
-    }
+width: 100%;
+max-width: 400px;
+margin: 0 auto;
+padding: 3rem 2rem;
+text-align: center;
+}
 
-    .box * {
-      margin: 0;
-      padding: 0;
-    }
+.box p {
+line-height: 1.5rem;
+}
 
-    .box .logo {
-      width: 80%;
-      max-width: 150px;
-    }
+.box * {
+margin: 0;
+padding: 0;
+}
 
-    .box .logo img {
-      width: 100%;
-    }
+.box .logo {
+width: 80%;
+max-width: 150px;
+}
 
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
+.box .logo img {
+width: 100%;
+}
 
-    button {
-      padding: 10px 15px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-    }
+input {
+width: 100%;
+padding: 10px;
+border-radius: 6px;
+border: 1px solid #ccc;
+}
 
-    .buy {
-      background: #28a745;
-      color: white;
-    }
+button {
+padding: 10px 15px;
+border-radius: 6px;
+border: none;
+cursor: pointer;
+}
 
-  </style>
+.buy {
+background: #28a745;
+color: white;
+}
 
-  <body>
+</style>
 
-    <div class="container">
-      <div class="box">
+</head>
 
-        <div class="logo">
-          <img
-            src="https://d2ucq9llvgnbyn.cloudfront.net/Ticto+Logo.svg"
-            alt="Mozart"
-          />
-        </div>
+<body>
 
-        <h2>Teste de Flow</h2>
+<div class="container">
 
-        <input
-          id="offerInput"
-          placeholder="Digite o código da oferta upsell"
-        />
+<div class="box">
 
-        <button
-          id="buyButton"
-          class="buy"
-        >
-          COMPRAR AGORA
-        </button>
+<div class="logo">
+<img
+src="https://d2ucq9llvgnbyn.cloudfront.net/Ticto+Logo.svg"
+alt="Ticto"
+/>
+</div>
 
-        <button
-          type="button"
-          class="ticto-refuse-button"
-        >
-          NÃO QUERO, OBRIGADO.
-        </button>
+<h2>Teste de Upsell</h2>
 
-      </div>
-    </div>
+<input
+id="offerInput"
+placeholder="Digite o código da oferta upsell"
+/>
+
+<button
+id="buyButton"
+class="ticto-upsell-button buy"
+type="button"
+>
+COMPRAR AGORA
+</button>
+
+<button
+type="button"
+class="ticto-refuse-button"
+>
+NÃO QUERO, OBRIGADO.
+</button>
+
+</div>
+
+</div>
 
 <script>
 
+// pegar ambiente pela URL
 function getEnv() {
 
-  const params = new URLSearchParams(window.location.search)
+const params = new URLSearchParams(window.location.search)
 
-  const env = params.get("env") || "qa8"
-
-  return env
+return params.get("env") || "qa8"
 
 }
 
+// carregar script do ambiente
 function loadScript() {
 
-  const env = getEnv()
+const env = getEnv()
 
-  const script = document.createElement("script")
+const script = document.createElement("script")
 
-  script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
+script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
 
-  script.async = true
+script.async = true
 
-  document.head.appendChild(script)
+document.head.appendChild(script)
 
 }
 
 loadScript()
 
+// quando clicar no botão, inserir o código da oferta
 document.getElementById("buyButton").addEventListener("click", () => {
 
-  const offer = document.getElementById("offerInput").value
+const offer = document.getElementById("offerInput").value
 
-  if (!offer) {
-    alert("Digite o código da oferta")
-    return
-  }
+if (!offer) {
 
-  const btn = document.createElement("button")
+alert("Digite o código da oferta upsell")
 
-  btn.className = "ticto-upsell-button"
+return
 
-  btn.setAttribute("data-offer-code", offer)
+}
 
-  btn.style.display = "none"
-
-  document.body.appendChild(btn)
-
-  btn.click()
+document
+.getElementById("buyButton")
+.setAttribute("data-offer-code", offer)
 
 })
 
 </script>
 
-  </body>
+</body>
 </html>
