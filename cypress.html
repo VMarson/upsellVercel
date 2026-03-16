@@ -64,6 +64,19 @@ color:white;
 
 </style>
 
+<script>
+
+// pega env da URL
+const params = new URLSearchParams(window.location.search)
+const env = params.get("env") || "qa8"
+
+// cria script da Ticto antes da página carregar
+document.write(
+  `<script src="https://midas.${env}.ticto.dev/oneclickbuy.js"><\/script>`
+)
+
+</script>
+
 </head>
 
 <body>
@@ -76,7 +89,7 @@ color:white;
 <img src="https://d2ucq9llvgnbyn.cloudfront.net/Ticto+Logo.svg">
 </div>
 
-<h2>Teste de Flow</h2>
+<h2 id="title">Teste de Flow</h2>
 
 <input
 id="offerInput"
@@ -105,14 +118,8 @@ NÃO QUERO, OBRIGADO
 
 <script>
 
-// pegar env da URL
-const params = new URLSearchParams(window.location.search)
-const env = params.get("env") || "qa8"
-
-// carregar script da Ticto conforme env
-const script = document.createElement("script")
-script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
-document.head.appendChild(script)
+// mostrar env na tela (debug)
+document.getElementById("title").innerText = "Teste de Flow - " + env
 
 // inserir offer code antes do clique
 document.getElementById("upsellButton").addEventListener("click", function(){
