@@ -88,7 +88,6 @@ type="button"
 id="upsellButton"
 class="ticto-upsell-button buy"
 data-offer-code=""
-onclick="setOfferCode()"
 >
 COMPRAR AGORA
 </button>
@@ -104,7 +103,25 @@ NÃO QUERO, OBRIGADO
 
 </div>
 
- <script src="https://midas.qa8.ticto.dev/oneclickbuy.js" async></script>
+<script>
+
+// quando clicar no botão, inserir o código da oferta
+document.getElementById("upsellButton").addEventListener("click", function(){
+
+const offer = document.getElementById("offerInput").value
+
+if(!offer){
+alert("Digite o código da oferta")
+return
+}
+
+this.setAttribute("data-offer-code", offer)
+
+})
+
+</script>
+
+<script src="https://midas.qa8.ticto.dev/oneclickbuy.js"></script>
 
 </body>
 </html>
