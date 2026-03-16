@@ -1,87 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Teste Upsell</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100&display=swap"
-rel="stylesheet"
-/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
-body {
-background: #e4ecf1;
-font-family: "Roboto", Arial, Helvetica, sans-serif;
-color: #333;
+body{
+background:#e4ecf1;
+font-family:"Roboto",Arial,Helvetica,sans-serif;
 }
 
-.container {
-width: 100vw;
-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
+.container{
+width:100vw;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
-.box {
-background: white;
-border-radius: 0.5rem;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 1rem;
-
-width: 100%;
-max-width: 400px;
-margin: 0 auto;
-padding: 3rem 2rem;
-text-align: center;
+.box{
+background:white;
+border-radius:8px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:12px;
+max-width:400px;
+padding:40px 30px;
+text-align:center;
 }
 
-.box p {
-line-height: 1.5rem;
+.logo img{
+width:120px;
 }
 
-.box * {
-margin: 0;
-padding: 0;
+input{
+width:100%;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
 }
 
-.box .logo {
-width: 80%;
-max-width: 150px;
+button{
+padding:10px 16px;
+border-radius:6px;
+border:none;
+cursor:pointer;
 }
 
-.box .logo img {
-width: 100%;
-}
-
-input {
-width: 100%;
-padding: 10px;
-border-radius: 6px;
-border: 1px solid #ccc;
-}
-
-button {
-padding: 10px 15px;
-border-radius: 6px;
-border: none;
-cursor: pointer;
-}
-
-.buy {
-background: #28a745;
-color: white;
+.buy{
+background:#28a745;
+color:white;
 }
 
 </style>
@@ -95,28 +72,27 @@ color: white;
 <div class="box">
 
 <div class="logo">
-<img
-src="https://d2ucq9llvgnbyn.cloudfront.net/Ticto+Logo.svg"
-alt="Ticto"
-/>
+<img src="https://d2ucq9llvgnbyn.cloudfront.net/Ticto+Logo.svg">
 </div>
 
-<h2>Teste de Upsell</h2>
+<h2>Teste de Flow</h2>
 
-<input
-id="offerInput"
-placeholder="Digite o código da oferta upsell"
-/>
+<input id="offerInput" placeholder="Digite o código da oferta upsell">
 
-<button
-id="buyButton"
-class="ticto-upsell-button buy"
-type="button"
->
+<button id="prepareBuy" class="buy">
 COMPRAR AGORA
 </button>
 
-<button type="button"  class="ticto-refuse-button" > NÃO QUERO, OBRIGADO</button>
+<!-- botão real da ticto -->
+<button id="realBuy"
+class="ticto-upsell-button"
+style="display:none">
+REAL BUY
+</button>
+
+<button class="ticto-refuse-button">
+NÃO QUERO, OBRIGADO
+</button>
 
 </div>
 
@@ -124,48 +100,31 @@ COMPRAR AGORA
 
 <script>
 
-// pegar ambiente pela URL
-function getEnv() {
-
+// ambiente dinâmico
 const params = new URLSearchParams(window.location.search)
+const env = params.get("env") || "qa8"
 
-return params.get("env") || "qa8"
-
-}
-
-// carregar script do ambiente
-function loadScript() {
-
-const env = getEnv()
-
+// carregar script da ticto
 const script = document.createElement("script")
-
 script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
-
 script.async = true
-
 document.head.appendChild(script)
 
-}
-
-loadScript()
-
-// quando clicar no botão, inserir o código da oferta
-document.getElementById("buyButton").addEventListener("click", () => {
+// botão intermediário
+document.getElementById("prepareBuy").addEventListener("click", () => {
 
 const offer = document.getElementById("offerInput").value
 
-if (!offer) {
-
-alert("Digite o código da oferta upsell")
-
+if(!offer){
+alert("Digite o código da oferta")
 return
-
 }
 
-document
-.getElementById("buyButton")
-.setAttribute("data-offer-code", offer)
+const realBtn = document.getElementById("realBuy")
+
+realBtn.setAttribute("data-offer-code",offer)
+
+realBtn.click()
 
 })
 
