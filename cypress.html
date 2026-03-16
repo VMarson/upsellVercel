@@ -83,7 +83,15 @@ id="offerInput"
 placeholder="Digite o código da oferta upsell"
 />
 
-<button type="button"  class="ticto-upsell-button" data-offer-code="OB67425DD">COMPRAR AGORA</button>
+<button
+type="button"
+id="upsellButton"
+class="ticto-upsell-button buy"
+data-offer-code=""
+onclick="setOfferCode()"
+>
+COMPRAR AGORA
+</button>
 
 <button
 type="button"
@@ -96,35 +104,7 @@ NÃO QUERO, OBRIGADO
 
 </div>
 
-<script>
-
-// ambiente dinâmico
-const params = new URLSearchParams(window.location.search)
-const env = params.get("env") || "qa8"
-
-// carregar script da ticto
-const script = document.createElement("script")
-script.src = `https://midas.${env}.ticto.dev/oneclickbuy.js`
-script.async = true
-document.head.appendChild(script)
-
-// função que define o offer antes do clique
-function setOfferCode(){
-
-const offer = document.getElementById("offerInput").value
-
-if(!offer){
-alert("Digite o código da oferta")
-return false
-}
-
-document
-.getElementById("upsellButton")
-.setAttribute("data-offer-code",offer)
-
-}
-
-</script>
+ <script src="https://midas.qa8.ticto.dev/oneclickbuy.js" async></script>
 
 </body>
 </html>
